@@ -46,14 +46,17 @@ int main(void)
     // GET UID
     BYTE GET_UID[] = { 0xFF,0xCA,0x00,0x00,0x00 };
 
-    // DUMMY MESSAGE
-
+    // DUMMY MESSAGE Code Format
+    //BYTE DATA[] = {0xFF, 0xD6 , 0x00, Address of the Block, Size of Payload, Payload_1, Payload_2, Payload_3,Payload_4};
 
     BYTE DUMMY1[] = {0xFF, 0xD6 , 0x00, 0x04, 0x04, 0xBB, 0xEE, 0xBB,0xEE};
 
     BYTE DUMMY2[] = {0xFF, 0xD6 , 0x00, 0x05, 0x04, 0x99, 0x99, 0x99,0x99 };
 
     BYTE DUMMY3[] = {0xFF, 0xD6 , 0x00, 0x06, 0x04, 0xED, 0xED, 0xED,0xED };
+
+    // Read Data Back Code Format
+    //BYTE DATA[] = {0xFF, 0xB0 , 0x00, Address of the Block, Size of Payload};
 
     BYTE READ_BLOCK[] = { 0xFF, 0xB0, 0x00, 0x05, 0x04 };
 
@@ -187,7 +190,7 @@ int main(void)
         return -1;
     PrintResponse(pbRecv, dwRecv);
 
-    // Write Dummy Message
+    // Read back data present at Block 5
     printf("Read BLOCK 5\n");
     dwRecv = sizeof(pbRecv);
     lReturn = SCardTransmit(
