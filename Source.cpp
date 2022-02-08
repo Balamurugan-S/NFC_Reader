@@ -49,16 +49,27 @@ int main(void)
     // DUMMY MESSAGE Code Format
     //BYTE DATA[] = {0xFF, 0xD6 , 0x00, Address of the Block, Size of Payload, Payload_1, Payload_2, Payload_3,Payload_4};
 
-    BYTE DUMMY1[] = { 0xFF, 0xD6 , 0x00, 0x04, 0x04, 0x03, 0x08, 0xD1,0x01 };
-    BYTE DUMMY2[] = { 0xFF, 0xD6 , 0x00, 0x05, 0x04, 0x04, 0x54, 0x02,0x65 };
-    BYTE DUMMY3[] = { 0xFF, 0xD6 , 0x00, 0x06, 0x04, 0x06E, 0x48, 0xFE,0x00};
+    BYTE DUMMY1[] = { 0xFF, 0xD6 , 0x00, 0x04, 0x04, 0x03, 0x32, 0x92, 0x06  };
+    BYTE DUMMY2[] = { 0xFF, 0xD6 , 0x00, 0x05, 0x04, 0x10, 0x44, 0x45, 0x56  };
+    BYTE DUMMY3[] = { 0xFF, 0xD6 , 0x00, 0x06, 0x04, 0x45, 0x55, 0x49, 0x31  };
+    BYTE DUMMY4[] = { 0xFF, 0xD6 , 0x00, 0x07, 0x04, 0x31, 0x32, 0x32, 0x33  };
+    BYTE DUMMY5[] = { 0xFF, 0xD6 , 0x00, 0x08, 0x04, 0x33, 0x34, 0x34, 0x35  };
+    BYTE DUMMY6[] = { 0xFF, 0xD6 , 0x00, 0x09, 0x04, 0x35, 0x36, 0x36, 0x37  };
+    BYTE DUMMY7[] = { 0xFF, 0xD6 , 0x00, 0x0A, 0x04, 0x37, 0x38, 0x38, 0x52  };
+    BYTE DUMMY8[] = { 0xFF, 0xD6 , 0x00, 0x0B, 0x04, 0x06, 0x10, 0x41, 0x50  };
+    BYTE DUMMY9[] = { 0xFF, 0xD6 , 0x00, 0x0C, 0x04, 0x50, 0x45, 0x55, 0x49  };
+    BYTE DUMMY10[] = { 0xFF, 0xD6 , 0x00, 0x0D, 0x04, 0x31, 0x31, 0x32, 0x32 };
+    BYTE DUMMY11[] = { 0xFF, 0xD6 , 0x00, 0x0E, 0x04, 0x33, 0x33, 0x34, 0x34 };
+    BYTE DUMMY12[] = { 0xFF, 0xD6 , 0x00, 0x0F, 0x04, 0x35, 0x35, 0x36, 0x36 };
+    BYTE DUMMY13[] = { 0xFF, 0xD6 , 0x00, 0x10, 0x04, 0x37, 0x37, 0x38, 0x38 };
+    BYTE DUMMY14[] = { 0xFF, 0xD6 , 0x00, 0x11, 0x04, 0xFF, 0x00, 0x00, 0x00 };
 
     // Read Data Back Code Format
     //BYTE DATA[] = {0xFF, 0xB0 , 0x00, Address of the Block, Size of Payload};
 
-    BYTE READ_BLOCK[] = { 0xFF, 0xB0, 0x00, 0x04, 0x04 };
-    BYTE READ_BLOCK2[] = { 0xFF, 0xB0, 0x00, 0x05, 0x04 };
-    BYTE READ_BLOCK3[] = { 0xFF, 0xB0, 0x00, 0x06, 0x04 };
+    // BYTE READ_BLOCK[] = { 0xFF, 0xB0, 0x00, 0x04, 0x04 };
+    // BYTE READ_BLOCK2[] = { 0xFF, 0xB0, 0x00, 0x05, 0x04 };
+    // BYTE READ_BLOCK3[] = { 0xFF, 0xB0, 0x00, 0x06, 0x04 };
 
     // Establish the context.
     lReturn = SCardEstablishContext(
@@ -144,9 +155,7 @@ int main(void)
  
  
 
-    // Write Dummy Message
-    printf("Write DATA to Block 4 \n");
-    PrintResponse(DUMMY1, sizeof(DUMMY1));
+    // Write Dummy Message1
     dwRecv = sizeof(pbRecv);
     lReturn = SCardTransmit(
         hCardHandle,
@@ -160,9 +169,7 @@ int main(void)
         return -1;
     PrintResponse(pbRecv, dwRecv); 
 
-    // Write Dummy Message
-    printf("Write DATA to Block 5 \n");
-    PrintResponse(DUMMY2, sizeof(DUMMY2));
+    // Write Dummy Message2
     dwRecv = sizeof(pbRecv);
     lReturn = SCardTransmit(
         hCardHandle,
@@ -176,9 +183,7 @@ int main(void)
         return -1;
     PrintResponse(pbRecv, dwRecv);
 
-    // Write Dummy Message
-    printf("Write DATA to Block 6 \n");
-    PrintResponse(DUMMY2, sizeof(DUMMY2));
+    // Write Dummy Message3
     dwRecv = sizeof(pbRecv);
     lReturn = SCardTransmit(
         hCardHandle,
@@ -192,50 +197,159 @@ int main(void)
         return -1;
     PrintResponse(pbRecv, dwRecv);
 
-    // Read back data present at Block 4
-    printf("Read BLOCK 4\n");
+    // Write Dummy Message4
     dwRecv = sizeof(pbRecv);
     lReturn = SCardTransmit(
         hCardHandle,
         &pioSendPci,
-        READ_BLOCK,
-        sizeof(READ_BLOCK),
+        DUMMY4,
+        sizeof(DUMMY4),
         NULL,
         pbRecv,
         &dwRecv);
     if (ErrorCheck("SCardTransmit", lReturn))
         return -1;
-    PrintResponse(pbRecv, dwRecv-2);
+    PrintResponse(pbRecv, dwRecv);
 
-    // Read back data present at Block 4
-    printf("Read BLOCK 5\n");
+    // Write Dummy Message5
     dwRecv = sizeof(pbRecv);
     lReturn = SCardTransmit(
         hCardHandle,
         &pioSendPci,
-        READ_BLOCK2,
-        sizeof(READ_BLOCK2),
+        DUMMY5,
+        sizeof(DUMMY5),
         NULL,
         pbRecv,
         &dwRecv);
     if (ErrorCheck("SCardTransmit", lReturn))
         return -1;
-    PrintResponse(pbRecv, dwRecv - 2);
+    PrintResponse(pbRecv, dwRecv);
 
-    // Read back data present at Block 4
-    printf("Read BLOCK 6\n");
+    // Write Dummy Message6
     dwRecv = sizeof(pbRecv);
     lReturn = SCardTransmit(
         hCardHandle,
         &pioSendPci,
-        READ_BLOCK3,
-        sizeof(READ_BLOCK3),
+        DUMMY6,
+        sizeof(DUMMY6),
         NULL,
         pbRecv,
         &dwRecv);
     if (ErrorCheck("SCardTransmit", lReturn))
         return -1;
-    PrintResponse(pbRecv, dwRecv - 2);
+    PrintResponse(pbRecv, dwRecv);
+
+    // Write Dummy Message7
+    dwRecv = sizeof(pbRecv);
+    lReturn = SCardTransmit(
+        hCardHandle,
+        &pioSendPci,
+        DUMMY7,
+        sizeof(DUMMY7),
+        NULL,
+        pbRecv,
+        &dwRecv);
+    if (ErrorCheck("SCardTransmit", lReturn))
+        return -1;
+    PrintResponse(pbRecv, dwRecv);
+
+    // Write Dummy Message8
+    dwRecv = sizeof(pbRecv);
+    lReturn = SCardTransmit(
+        hCardHandle,
+        &pioSendPci,
+        DUMMY8,
+        sizeof(DUMMY8),
+        NULL,
+        pbRecv,
+        &dwRecv);
+    if (ErrorCheck("SCardTransmit", lReturn))
+        return -1;
+    PrintResponse(pbRecv, dwRecv);
+
+    // Write Dummy Message9
+    dwRecv = sizeof(pbRecv);
+    lReturn = SCardTransmit(
+        hCardHandle,
+        &pioSendPci,
+        DUMMY9,
+        sizeof(DUMMY9),
+        NULL,
+        pbRecv,
+        &dwRecv);
+    if (ErrorCheck("SCardTransmit", lReturn))
+        return -1;
+    PrintResponse(pbRecv, dwRecv);
+
+    // Write Dummy Message10
+    dwRecv = sizeof(pbRecv);
+    lReturn = SCardTransmit(
+        hCardHandle,
+        &pioSendPci,
+        DUMMY10,
+        sizeof(DUMMY10),
+        NULL,
+        pbRecv,
+        &dwRecv);
+    if (ErrorCheck("SCardTransmit", lReturn))
+        return -1;
+    PrintResponse(pbRecv, dwRecv);
+
+    // Write Dummy Message11
+    dwRecv = sizeof(pbRecv);
+    lReturn = SCardTransmit(
+        hCardHandle,
+        &pioSendPci,
+        DUMMY11,
+        sizeof(DUMMY11),
+        NULL,
+        pbRecv,
+        &dwRecv);
+    if (ErrorCheck("SCardTransmit", lReturn))
+        return -1;
+    PrintResponse(pbRecv, dwRecv);
+
+    // Write Dummy Message12
+    dwRecv = sizeof(pbRecv);
+    lReturn = SCardTransmit(
+        hCardHandle,
+        &pioSendPci,
+        DUMMY12,
+        sizeof(DUMMY12),
+        NULL,
+        pbRecv,
+        &dwRecv);
+    if (ErrorCheck("SCardTransmit", lReturn))
+        return -1;
+    PrintResponse(pbRecv, dwRecv);
+
+    // Write Dummy Message13
+    dwRecv = sizeof(pbRecv);
+    lReturn = SCardTransmit(
+        hCardHandle,
+        &pioSendPci,
+        DUMMY13,
+        sizeof(DUMMY13),
+        NULL,
+        pbRecv,
+        &dwRecv);
+    if (ErrorCheck("SCardTransmit", lReturn))
+        return -1;
+    PrintResponse(pbRecv, dwRecv);
+
+    // Write Dummy Message14
+    dwRecv = sizeof(pbRecv);
+    lReturn = SCardTransmit(
+        hCardHandle,
+        &pioSendPci,
+        DUMMY14,
+        sizeof(DUMMY14),
+        NULL,
+        pbRecv,
+        &dwRecv);
+    if (ErrorCheck("SCardTransmit", lReturn))
+        return -1;
+    PrintResponse(pbRecv, dwRecv);
 
     // Free the memory.
     lReturn = SCardFreeMemory(
